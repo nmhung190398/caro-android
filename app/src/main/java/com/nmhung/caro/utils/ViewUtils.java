@@ -1,11 +1,9 @@
-package com.nmhung.utils;
+package com.nmhung.caro.utils;
 
 import android.content.Context;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
-
-import com.nmhung.caro.R;
 
 public class ViewUtils {
     Context context;

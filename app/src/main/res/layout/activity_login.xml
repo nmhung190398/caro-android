@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/username"
         android:hint="Username"></EditText>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/password"
         android:hint="Password"></EditText>
 
     <Button
@@ -25,19 +27,12 @@
         android:layout_height="wrap_content"
         android:text="Login"></Button>
 
-    <EditText
-        android:id="@+id/frmChat"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:focusable="false"
-        android:gravity="top"
-        android:inputType="text|textMultiLine" />
 
     <EditText
-        android:id="@+id/msg"
+        android:id="@+id/ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="text"></EditText>
+        android:hint="ip sever"></EditText>
 
 
 </LinearLayout>
