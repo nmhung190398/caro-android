@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">caro</string>
+    <string name="title_activity_dao">DAOActivity</string>
 </resources>

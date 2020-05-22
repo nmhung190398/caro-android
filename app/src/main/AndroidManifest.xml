@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.RoomActivity"></activity>
+        <activity android:name=".activity.DAOActivity">
+
+        </activity>
+        <activity android:name=".activity.RoomActivity" />
+        <activity android:name=".activity.DangKyActivity" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

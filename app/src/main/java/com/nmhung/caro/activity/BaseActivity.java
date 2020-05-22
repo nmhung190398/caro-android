@@ -13,10 +13,9 @@ import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     protected int layoutResID;
     protected static Gson gson;
-    TextView txtView;
 
     public BaseActivity(@LayoutRes int layoutResID) {
         this.layoutResID = layoutResID;
@@ -27,8 +26,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(this.layoutResID);
-
+        findViews();
+        setEvents();
     }
+
+    protected abstract void findViews();
+
+    protected abstract void setEvents();
 
     protected void startActivity(Class<? extends Activity> classActivity, Pair<String, Object>... pairs) {
         Intent intent = new Intent(this, classActivity);

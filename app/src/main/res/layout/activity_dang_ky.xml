@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.DangKyActivity">
 
     <EditText
         android:id="@+id/username"
@@ -25,30 +25,9 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"></Button>
-
-        <Button
-            android:id="@+id/btnDangKy"
+            android:id="@+id/dangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đăng ký"></Button>
     </LinearLayout>
-
-
-    <EditText
-        android:id="@+id/ip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ip sever"></EditText>
-
-    <Button
-        android:id="@+id/dao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-
 </LinearLayout>

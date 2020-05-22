@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -41,6 +42,7 @@ public class LoginActivity extends BaseActivity {
     private EditText txtPassword;
     private Button btnLogin;
     private UserService userService;
+    private Button openDAO;
 
     public LoginActivity() {
         super(R.layout.activity_login);
@@ -57,9 +59,8 @@ public class LoginActivity extends BaseActivity {
         txtUsername = findViewById(R.id.username);
         txtPassword = findViewById(R.id.password);
         txtIpConfig = findViewById(R.id.ip);
+        openDAO = findViewById(R.id.dao);
         txtIpConfig.setText(BASE_URL);
-
-
 
 
         txtUsername.setText("admin");
@@ -77,19 +78,53 @@ public class LoginActivity extends BaseActivity {
 //        socket.emit("hdz", "data ne");
     }
 
+    @Override
+    protected void findViews() {
+
+    }
+
+    @Override
+    protected void setEvents() {
+
+    }
+
     private void createEvent() {
+        openDAO.setOnClickListener(view -> {
+            startActivity(DAOActivity.class);
+        });
+
+        findViewById(R.id.btnDangKy).setOnClickListener(v -> {
+            Context context = getBaseContext();
+            Intent intent = BaseActivity.newIntent(context, DangKyActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
 
 
         btnLogin.setOnClickListener(view -> {
             String username = txtUsername.getText().toString();
             String password = txtPassword.getText().toString();
             Constant.BASE_URL = txtIpConfig.getText().toString();
-            userService.login(username, password).enqueue(new Callback<Object>() {
+//            USER_LOGIN = "admin";
+//            Context context = getBaseContext();
+//            Intent intent = BaseActivity.newIntent(context, RoomActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+
+
+            RetrofitClient.getAPIService(UserService.class).login(username, password).enqueue(new Callback<Object>() {
 
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
                     String msg = "";
                     switch (response.code()) {
+                        case 200:
+                            Context context = getBaseContext();
+                            Intent intent = BaseActivity.newIntent(context, RoomActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            USER_LOGIN = username;
+                            context.startActivity(intent);
+                            break;
                         case 404:
                             msg = "Lỗi hệ thống";
                             break;
@@ -97,25 +132,21 @@ public class LoginActivity extends BaseActivity {
                             msg = "Sai mật khẩu hoặc tài khoản";
                             break;
                         default:
-                            Context context = getBaseContext();
-                            Intent intent = BaseActivity.newIntent(context, RoomActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            USER_LOGIN = username;
-                            context.startActivity(intent);
+                            msg = (String) response.body();
                             //login
-
                     }
+                    Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onFailure(Call<Object> call, Throwable t) {
-                    System.out.println();
+                    Toast.makeText(getBaseContext(), "Lỗi hệ thống", Toast.LENGTH_LONG).show();
+                    Log.e("call-api", t.getMessage());
                 }
             });
         });
 
     }
-
 
 
 }

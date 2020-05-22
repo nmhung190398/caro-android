@@ -9,5 +9,5 @@ public class Constant {
 
     public static String USER_LOGIN;
 
-    public static String BASE_URL = "http://192.168.0.100:3000/";
+    public static String BASE_URL = "http://192.168.0.105:3000/";
 }

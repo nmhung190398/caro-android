@@ -3,6 +3,7 @@ package com.nmhung.caro.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     View map[][];
 
-
+    private String roomId;
     boolean ahihi = false;
     private Timer timer;
     boolean isWait = false;
@@ -47,14 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
     Socket socket;
     private Emitter.Listener onAttack = (Object... args) -> {
+
         System.out.println(args[0]);
         ItemModel itemModel = BaseActivity.gson.fromJson((String) args[0], ItemModel.class);
-        View view = findByXY(itemModel.getX(), itemModel.getY());
-        if (view != null) {
-            view.setTag(itemModel);
-            ViewUtils.of(this).setBackground(view, itemModel.getOwned().equals(USER_LOGIN) ? R.drawable.item_my_click : R.drawable.item_other_click);
-            TextView textView = (TextView) view;
-            textView.setText("X");
+        if (itemModel.getRoomId().equalsIgnoreCase(roomId)) {
+            View view = findByXY(itemModel.getX(), itemModel.getY());
+            if (view != null) {
+                view.setTag(itemModel);
+                ViewUtils.of(this).setBackground(view, itemModel.getOwned().equals(USER_LOGIN) ? R.drawable.item_my_click : R.drawable.item_other_click);
+                TextView textView = (TextView) view;
+                textView.setText("X");
+            }
         }
     };
 
@@ -130,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1000, 100);
         ItemModel itemModel = (ItemModel) view.getTag();
+        itemModel.setRoomId(roomId);
         Log.i("HDZ", itemModel.getX() + ":" + itemModel.getX());
 
         if (!itemModel.existOwned() && !isWait) {
@@ -137,13 +142,14 @@ public class MainActivity extends AppCompatActivity {
             socket.emit("attack", BaseActivity.gson.toJson(itemModel));
 //                ViewUtils.of(this).setBackground(view, ahihi ? R.drawable.item_my_click : R.drawable.item_other_click);
         }
-
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        roomId = intent.getStringExtra("roomId");
         createMap();
         timer = new Timer();
         tableLayout = this.findViewById(R.id.table);
@@ -161,5 +167,9 @@ public class MainActivity extends AppCompatActivity {
 //        socket.connect();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        socket.emit("leaveRoom", roomId);
+        super.onBackPressed();
+    }
 }

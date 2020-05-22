@@ -2,6 +2,7 @@ package com.nmhung.caro.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -57,7 +58,7 @@ public class RoomActivity extends BaseActivity {
         try {
             Boolean status = jsonObject.getBoolean("status");
             if (status) {
-
+                joinRoom(jsonObject.getString("roomId"));
                 return;
             }
             msg = jsonObject.getString("msg");
@@ -67,7 +68,7 @@ public class RoomActivity extends BaseActivity {
 
         }
 
-        Toast.makeText(this, msg, Toast.LENGTH_LONG);
+//        Toast.makeText(this, msg, Toast.LENGTH_LONG);
     };
 
     private Emitter.Listener onRooms = (Object... args) -> {
@@ -113,6 +114,7 @@ public class RoomActivity extends BaseActivity {
         socket.connect();
         socket.emit("waitingRoom", Constant.USER_LOGIN);
 
+
         findViews();
         eventViews();
     }
@@ -123,10 +125,15 @@ public class RoomActivity extends BaseActivity {
         });
     }
 
-    private void findViews() {
+    protected void findViews() {
         btnCreateRoom = findViewById(R.id.createRoom);
         tableRooms = findViewById(R.id.tableRooms);
         createRoom(tableRooms);
+    }
+
+    @Override
+    protected void setEvents() {
+
     }
 
     private void createRoom(TableLayout tableRooms) {
@@ -175,4 +182,12 @@ public class RoomActivity extends BaseActivity {
         socket.emit("joinRoom", roomModel.getId());
         Log.i("HDZ", roomModel.getId());
     };
+
+
+    void joinRoom(String roomId) {
+        Intent intent = BaseActivity.newIntent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("roomId", roomId);
+        this.startActivity(intent);
+    }
 }
