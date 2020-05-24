@@ -16,6 +16,7 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.nmhung.caro.R;
 import com.nmhung.caro.constant.Constant;
+import com.nmhung.caro.model.UserModel;
 import com.nmhung.caro.retrofit.RetrofitClient;
 import com.nmhung.caro.retrofit.service.UserService;
 
@@ -32,6 +33,7 @@ import retrofit2.Response;
 
 import static com.nmhung.caro.constant.Constant.BASE_URL;
 import static com.nmhung.caro.constant.Constant.USER_LOGIN;
+import static com.nmhung.caro.constant.Constant.USER_LOGIN_MODEL;
 
 
 public class LoginActivity extends BaseActivity {
@@ -59,7 +61,6 @@ public class LoginActivity extends BaseActivity {
         txtUsername = findViewById(R.id.username);
         txtPassword = findViewById(R.id.password);
         txtIpConfig = findViewById(R.id.ip);
-        openDAO = findViewById(R.id.dao);
         txtIpConfig.setText(BASE_URL);
 
 
@@ -89,9 +90,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void createEvent() {
-        openDAO.setOnClickListener(view -> {
-            startActivity(DAOActivity.class);
-        });
 
         findViewById(R.id.btnDangKy).setOnClickListener(v -> {
             Context context = getBaseContext();
@@ -112,17 +110,18 @@ public class LoginActivity extends BaseActivity {
 //            context.startActivity(intent);
 
 
-            RetrofitClient.getAPIService(UserService.class).login(username, password).enqueue(new Callback<Object>() {
+            RetrofitClient.getAPIService(UserService.class).login(username, password).enqueue(new Callback<UserModel>() {
 
                 @Override
-                public void onResponse(Call<Object> call, Response<Object> response) {
-                    String msg = "";
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    String msg = "Đăng nhập thành công";
                     switch (response.code()) {
                         case 200:
                             Context context = getBaseContext();
                             Intent intent = BaseActivity.newIntent(context, RoomActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             USER_LOGIN = username;
+                            USER_LOGIN_MODEL = response.body();
                             context.startActivity(intent);
                             break;
                         case 404:
@@ -132,14 +131,14 @@ public class LoginActivity extends BaseActivity {
                             msg = "Sai mật khẩu hoặc tài khoản";
                             break;
                         default:
-                            msg = (String) response.body();
+                            msg = "Lỗi hệ thống";
                             //login
                     }
                     Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
-                public void onFailure(Call<Object> call, Throwable t) {
+                public void onFailure(Call<UserModel> call, Throwable t) {
                     Toast.makeText(getBaseContext(), "Lỗi hệ thống", Toast.LENGTH_LONG).show();
                     Log.e("call-api", t.getMessage());
                 }

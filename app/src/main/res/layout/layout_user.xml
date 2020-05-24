@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUser1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ahihi"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/txtName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#2d2d2d"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPoint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtStatus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUser2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ahihi"
+            app:civ_border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/txtName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#2d2d2d"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPoint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtStatus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+</LinearLayout>

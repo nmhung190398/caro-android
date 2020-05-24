@@ -26,7 +26,6 @@ public class DangKyActivity extends BaseActivity {
     private EditText txtUsername;
     private EditText txtPassword;
     private UserService userService;
-    private Button btnDangKy;
 
     public DangKyActivity() {
         super(R.layout.activity_dang_ky);
@@ -35,7 +34,6 @@ public class DangKyActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        btnDangKy = findViewById(R.id.dangKy);
         findViewById(R.id.dangKy).setOnClickListener(v -> {
             UserModel userModel = new UserModel();
             userModel.setUsername(txtUsername.getText().toString());

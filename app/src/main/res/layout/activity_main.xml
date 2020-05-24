@@ -7,18 +7,41 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
-    <com.daimajia.numberprogressbar.NumberProgressBar
-        android:id="@+id/number_progress_bar"
+
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/NumberProgressBar_Default"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/play01"></TextView>
+
+        <TextView android:id="@+id/play02"></TextView>
+        <!--        <TableLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+        <!--            <Button></Button>-->
+        <!--        </TableLayout>-->
+        <!--        <TableLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+        <!--            <Button></Button>-->
+        <!--        </TableLayout>-->
+    </TableLayout>
+    <include
+        layout="@layout/layout_user"
         />
     <TableLayout
         android:id="@+id/table"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TableLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSanSang"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
-    </TableLayout>
+        android:textColor="#fff"
+        app:backgroundTint="@color/colorPrimary"
+        android:text="Sãn Sàng"/>
 
     <!--    <LinearLayout-->
     <!--        android:layout_width="wrap_content"-->
